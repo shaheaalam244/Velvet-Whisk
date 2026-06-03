@@ -359,4 +359,76 @@ footer {
     padding: 20px;
     margin: 20px;
   }
+
+  .cake-detail-container {
+    flex-direction: column;
+  }
+}
+
+/* 🍰 Product Details Page */
+.cake-detail-container {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.cake-detail-img-wrapper {
+  flex: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.cake-detail-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.cake-detail-img:hover {
+  transform: scale(1.03);
+}
+
+.cake-detail-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cake-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+}
+
+.cake-price {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.cake-meta p {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin: 5px 0;
+}
+
+.cake-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  background: #fdfaf8;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid var(--secondary);
+}
+
+.detail-buttons {
+  justify-content: flex-start;
+  margin-top: 10px;
 }

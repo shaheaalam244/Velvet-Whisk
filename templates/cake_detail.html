@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container cake-detail-container">
+  <div class="cake-detail-img-wrapper">
+    <img src="{{ url_for('static', filename=cake.image_path) }}" alt="{{ cake.name }}" class="cake-detail-img">
+  </div>
+  
+  <div class="cake-detail-info">
+    <h2 class="cake-title">{{ cake.name }}</h2>
+    <p class="cake-price">₹{{ cake.price }}</p>
+    
+    <div class="cake-meta">
+      <p><strong>Flavour:</strong> {{ cake.flavour }}</p>
+      <p><strong>Weight:</strong> {{ cake.weight }}</p>
+    </div>
+    
+    <div class="cake-description">
+      <p>{{ cake.description }}</p>
+    </div>
+
+    <div class="button-row detail-buttons">
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('add_to_cart', cake_id=cake.id) }}" class="btn">🛒 Add to Cart</a>
+        <a href="{{ url_for('add_to_wishlist', cake_id=cake.id) }}" class="btn wishlist-btn">💖 Wishlist</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="btn">Login to Buy</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

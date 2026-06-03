@@ -36,6 +36,12 @@ def create_app():
             cakes = Cake.query.all()
         return render_template('index.html', cakes=cakes)
 
+    # ---------------- CAKE DETAIL ----------------
+    @app.route('/cake/<int:cake_id>')
+    def cake_detail(cake_id):
+        cake = Cake.query.get_or_404(cake_id)
+        return render_template('cake_detail.html', cake=cake)
+
     # ---------------- REGISTER ----------------
     @app.route('/register', methods=['GET', 'POST'])
     def register():

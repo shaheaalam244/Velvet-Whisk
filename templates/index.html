@@ -21,8 +21,10 @@
   <div class="cake-grid">
     {% for cake in cakes %}
     <div class="cake-card">
-      <img src="{{ url_for('static', filename=cake.image_path) }}" alt="{{ cake.name }}">
-      <h3>{{ cake.name }}</h3>
+      <a href="{{ url_for('cake_detail', cake_id=cake.id) }}" style="text-decoration: none; color: inherit; display: block;">
+        <img src="{{ url_for('static', filename=cake.image_path) }}" alt="{{ cake.name }}">
+        <h3>{{ cake.name }}</h3>
+      </a>
       <p>Flavour: {{ cake.flavour }}</p>
       <p>Weight: {{ cake.weight }}</p>
       <p>₹{{ cake.price }}</p>
