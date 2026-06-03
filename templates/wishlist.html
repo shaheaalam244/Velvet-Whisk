@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>💖 Your Wishlist</h2>
+
+{% if items %}
+<table>
+  <tr>
+    <th>Cake</th>
+    <th>Flavour</th>
+    <th>Price (₹)</th>
+    <th>Action</th>
+  </tr>
+
+  {% for item in items %}
+  <tr>
+    <td>{{ item.cake.name }}</td>
+    <td>{{ item.cake.flavour }}</td>
+    <td>{{ item.cake.price }}</td>
+    <td>
+      <a href="{{ url_for('add_to_cart', cake_id=item.cake.id) }}" class="btn">Add to Cart</a>
+      <a href="{{ url_for('remove_wishlist', item_id=item.id) }}">Remove</a>
+
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>Your wishlist is empty. <a href="{{ url_for('home') }}">Browse cakes!</a></p>
+{% endif %}
+
+{% endblock %}

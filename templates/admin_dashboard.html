@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+  <h2 style="color:#d16ba5; text-align:center;">🎀 Admin Dashboard</h2>
+
+  <!-- ✅ Cake Management Section -->
+  <div class="admin-section">
+    <h3>🎂 Cakes Management</h3>
+    <a href="{{ url_for('admin_add_cake') }}" class="btn small-btn">➕ Add New Cake</a>
+    <table class="admin-table">
+      <tr>
+        <th>ID</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Flavour</th>
+        <th>Price</th>
+        <th>Weight</th>
+        <th>Description</th>
+        <th>Action</th>
+      </tr>
+      {% for cake in cakes %}
+      <tr>
+        <td>{{ cake.id }}</td>
+        <td>
+          <img src="{{ url_for('static', filename=cake.image_path) }}" width="70" height="70" style="object-fit:cover; border-radius:8px;">
+        </td>
+        <td>{{ cake.name }}</td>
+        <td>{{ cake.flavour }}</td>
+        <td>₹{{ cake.price }}</td>
+        <td>{{ cake.weight }}</td>
+        <td>{{ cake.description }}</td>
+        <td>
+          <a href="{{ url_for('delete_cake', cake_id=cake.id) }}" class="btn small-btn danger">🗑️ Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <!-- ✅ Orders Section -->
+  <div class="admin-section">
+    <h3>📦 Orders</h3>
+    <table class="admin-table">
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Cakes Ordered</th>
+        <th>Total</th>
+        <th>Address</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Action</th>
+      </tr>
+{% for order in orders %}
+<tr>
+  <td>{{ order.id }}</td>
+  <td>{{ order.user.username }}</td>
+  <td>
+    {% for item in order.order_items %}
+    🍰 {{ item.cake.name }} (x{{ item.quantity }})<br>
+    {% endfor %}
+  </td>
+  <td>₹{{ order.total_amount }}</td>
+  <td>{{ order.address }}, {{ order.city }} - {{ order.pincode }}</td>
+  <td>{{ order.status }}</td>
+  <td>{{ order.order_date.strftime('%Y-%m-%d') }}</td>
+  <td>
+    {% if order.status == "Pending" %}
+    <a href="{{ url_for('confirm_order', order_id=order.id) }}" class="btn small-btn">✅ Confirm</a>
+    <a href="{{ url_for('cancel_order', order_id=order.id) }}" class="btn small-btn danger">❌ Cancel</a>
+    {% else %}
+    {{ order.status }}
+    {% endif %}
+  </td>
+</tr>
+{% endfor %}
+
+    </table>
+  </div>
+
+  <!-- ✅ Custom Cake Orders -->
+  <div class="admin-section">
+    <h3>🎨 Custom Cake Requests</h3>
+    <table class="admin-table">
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Message</th>
+        <th>Image</th>
+        <th>Date</th>
+      </tr>
+      {% for co in custom_orders %}
+      <tr>
+        <td>{{ co.id }}</td>
+        <td>{{ co.user.username }}</td>
+        <td>{{ co.message }}</td>
+        <td>
+          <img src="{{ url_for('static', filename=co.image_path) }}" width="100" height="100" style="object-fit:cover; border-radius:8px;">
+
+        </td>
+        <td>{{ co.created_at.strftime('%Y-%m-%d') }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <!-- ✅ User List -->
+  <div class="admin-section">
+    <h3>👥 Registered Users</h3>
+    <table class="admin-table">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Registered On</th>
+      </tr>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.created_at.strftime('%Y-%m-%d') }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+</div>
+
+{% endblock %}

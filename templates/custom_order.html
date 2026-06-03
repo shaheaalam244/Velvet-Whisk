@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <h2 style="color:#d16ba5;">🎨 Customize Your Cake</h2>
+  <p>Upload an image of your desired cake and describe your customizations below.</p>
+
+  <form method="POST" enctype="multipart/form-data">
+    <label>Message / Design Details:</label><br>
+    <textarea name="message" rows="4" placeholder="Write your customization details..." required></textarea><br><br>
+
+    <label>Upload Reference Image:</label><br>
+    <input type="file" name="image" accept="image/*" required><br><br>
+
+    <button type="submit" class="btn">Submit Custom Order</button>
+  </form>
+</div>
+{% endblock %}

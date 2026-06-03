@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+  <h2 style="color:#d16ba5;">🧁 Create Your Account</h2>
+  <p>Join our cake family and get your favorite desserts delivered!</p>
+
+  <form method="POST" action="">
+    <label>Username</label><br>
+    <input type="text" name="username" placeholder="Enter your name" required><br><br>
+
+    <label>Email</label><br>
+    <input type="email" name="email" placeholder="Enter your email" required><br><br>
+
+    <label>Password</label><br>
+    <input type="password" name="password" placeholder="Enter password" required><br><br>
+
+    <button type="submit" class="btn">Register</button>
+  </form>
+
+  <p style="margin-top:10px;">Already have an account?
+    <a href="{{ url_for('login') }}" style="color:#d16ba5;">Login here</a>
+  </p>
+</div>
+
+{% endblock %}

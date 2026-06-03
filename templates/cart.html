@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>🛒 Your Cart</h2>
+
+{% if items %}
+<table>
+  <tr>
+    <th>Cake</th>
+    <th>Flavour</th>
+    <th>Weight</th>
+    <th>Price (₹)</th>
+    <th>Quantity</th>
+    <th>Subtotal (₹)</th>
+    <th>Action</th>
+  </tr>
+
+  {% for item in items %}
+  <tr>
+    <td>{{ item.cake.name }}</td>
+    <td>{{ item.cake.flavour }}</td>
+    <td>{{ item.cake.weight }}</td>
+    <td>{{ item.cake.price }}</td>
+    <td>{{ item.quantity }}</td>
+    <td>{{ item.cake.price * item.quantity }}</td>
+    <td>
+      <a href="{{ url_for('remove_cart', item_id=item.id) }}" class="btn">Remove</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h3 style="text-align:right; margin-top:20px;">Total: ₹{{ total }}</h3>
+<div style="text-align:right; margin-top:10px;">
+  <a href="{{ url_for('checkout') }}" class="btn">Proceed to Checkout</a>
+</div>
+
+{% else %}
+<p>Your cart is empty. <a href="{{ url_for('home') }}">Shop now!</a></p>
+{% endif %}
+
+{% endblock %}

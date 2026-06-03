@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+.payment-container {
+  text-align: center;
+  margin-top: 60px;
+  animation: fadeIn 0.8s ease;
+}
+
+.payment-container h2 {
+  color: #d16ba5;
+  margin-bottom: 10px;
+}
+
+.payment-container p {
+  font-size: 18px;
+  color: #555;
+  margin: 10px 0;
+}
+
+/* 💳 Pay Button Animation */
+.pay-btn {
+  background: linear-gradient(135deg, #d16ba5, #f9a1bc);
+  color: white;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(209, 107, 165, 0.3);
+}
+
+.pay-btn:hover {
+  background: linear-gradient(135deg, #c25797, #f48db2);
+  transform: scale(1.05);
+}
+
+/* 💰 Loader Animation */
+.loader {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #d16ba5;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin: 25px auto;
+  animation: spin 1s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ✅ Success Message */
+.success-msg {
+  display: none;
+  font-size: 22px;
+  color: #28a745;
+  font-weight: 600;
+  animation: popIn 0.6s ease;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<div class="payment-container">
+  <h2>💳 Payment for Order #{{ order.id }}</h2>
+  <p>Total Amount: <strong>₹{{ order.total_amount }}</strong></p>
+  <p>Please click below to complete your payment.</p>
+
+  <button class="pay-btn" id="payNowBtn">💸 Pay Now</button>
+
+  <div class="loader" id="loader"></div>
+
+  <div class="success-msg" id="successMsg">🎉 Payment Successful! Redirecting...</div>
+</div>
+
+<script>
+document.getElementById("payNowBtn").addEventListener("click", function() {
+  const btn = this;
+  const loader = document.getElementById("loader");
+  const msg = document.getElementById("successMsg");
+
+  btn.style.display = "none";
+  loader.style.display = "block";
+
+  // simulate payment delay
+  setTimeout(() => {
+    loader.style.display = "none";
+    msg.style.display = "block";
+
+    // redirect after success animation
+    setTimeout(() => {
+      window.location.href = "{{ url_for('payment_success', order_id=order.id) }}";
+    }, 2000);
+  }, 2500);
+});
+</script>
+
+{% endblock %}

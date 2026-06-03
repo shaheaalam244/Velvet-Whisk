@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+  <h2 class="welcome-title">🎂 Welcome to Velvet & Whisk</h2>
+  <p style="text-align:center;">Discover, customize, and enjoy the sweetest cakes for every occasion!</p>
+
+  <!-- 🍫 Filter Cakes -->
+  <form method="GET" action="/" style="text-align:center; margin-bottom:20px;">
+    <label>Filter by Flavour: </label>
+    <select name="flavour" onchange="this.form.submit()">
+      <option value="">All</option>
+      <option value="Chocolate">Chocolate</option>
+      <option value="Vanilla">Vanilla</option>
+      <option value="Strawberry">Strawberry</option>
+      <option value="Red Velvet">Red Velvet</option>
+    </select>
+  </form>
+
+  <!-- 🧁 Cake Cards -->
+  <div class="cake-grid">
+    {% for cake in cakes %}
+    <div class="cake-card">
+      <img src="{{ url_for('static', filename=cake.image_path) }}" alt="{{ cake.name }}">
+      <h3>{{ cake.name }}</h3>
+      <p>Flavour: {{ cake.flavour }}</p>
+      <p>Weight: {{ cake.weight }}</p>
+      <p>₹{{ cake.price }}</p>
+      <p style="font-size:13px; color:#666;">{{ cake.description }}</p>
+
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('add_to_cart', cake_id=cake.id) }}" class="btn">🛒 Add to Cart</a>
+        <a href="{{ url_for('add_to_wishlist', cake_id=cake.id) }}" class="btn">💖 Wishlist</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="btn">Login to Buy</a>
+      {% endif %}
+    </div>
+    {% else %}
+    <p>No cakes found. Please add some from the Admin Dashboard.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

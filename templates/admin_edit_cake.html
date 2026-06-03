@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>✏️ Edit Cake Details</h2>
+
+<form method="POST" action="">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  
+  <label>Cake Name</label><br>
+  <input type="text" name="name" value="{{ cake.name }}" required><br><br>
+
+  <label>Flavour</label><br>
+  <input type="text" name="flavour" value="{{ cake.flavour }}" required><br><br>
+
+  <label>Price (₹)</label><br>
+  <input type="number" name="price" value="{{ cake.price }}" required><br><br>
+
+  <label>Weight</label><br>
+  <input type="text" name="weight" value="{{ cake.weight }}" required><br><br>
+
+  <label>Description</label><br>
+  <textarea name="description" rows="3" cols="40" required>{{ cake.description }}</textarea><br><br>
+
+  <input type="submit" value="Update Cake" class="btn">
+</form>
+{% endblock %}

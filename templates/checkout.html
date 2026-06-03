@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+  <h2 style="color:#d16ba5;">💳 Checkout</h2>
+
+  {% if items %}
+    <table>
+      <tr>
+        <th>Cake</th>
+        <th>Price</th>
+      </tr>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.cake.name }}</td>
+        <td>₹{{ item.cake.price }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h3>Total: ₹{{ total }}</h3>
+
+    <form method="POST" action="">
+      <label>Address</label><br>
+      <input type="text" name="address" placeholder="Enter full address" required><br><br>
+
+      <label>City</label><br>
+      <input type="text" name="city" placeholder="Enter your city" required><br><br>
+
+      <label>Pincode</label><br>
+      <input type="text" name="pincode" placeholder="Enter pincode" required><br><br>
+
+      <button type="submit" class="btn">Proceed to Pay</button>
+    </form>
+
+  {% else %}
+    <p>No items in your cart!</p>
+  {% endif %}
+</div>
+
+{% endblock %}

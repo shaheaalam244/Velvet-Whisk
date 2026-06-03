@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <h2 style="color:#d16ba5;">🎂 Add New Cake</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <label>Name:</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label>Flavour:</label><br>
+    <input type="text" name="flavour" required><br><br>
+
+    <label>Price (₹):</label><br>
+    <input type="number" name="price" required><br><br>
+
+    <label>Weight:</label><br>
+    <input type="text" name="weight"><br><br>
+
+    <label>Description:</label><br>
+    <textarea name="description" rows="3"></textarea><br><br>
+
+    <label>Upload Cake Image:</label><br>
+    <input type="file" name="image" accept="image/*"><br><br>
+
+    <button type="submit" class="btn">Add Cake</button>
+  </form>
+</div>
+{% endblock %}
